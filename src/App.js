@@ -36,7 +36,7 @@ class PersonalSkill extends React.Component {
   	render() {
 		return <section class="person-skill">
 			<h2>This is my skills:</h2>
-			<ListItem dataArray={Data.skills}/>
+			<ListItem dataArray={this.props.dataArray}/>
 	  	</section>
   	}
 }
@@ -85,7 +85,7 @@ function App() {
 		<FaBeer /> <FaDiaspora />
       	<section style={{ margin: "0 auto", width: "600px", "text-align": "left" }}>
 			<Summary summary={Data.summary}/>
-			<PersonalSkill/>
+			<PersonalSkill dataArray={Data.skills}/>
 			<Education/>
 			<WorkExperience/>
 			<Hobby/>
