@@ -14,8 +14,9 @@ class ClockCircle extends React.Component {
         this.ctx.translate(radius, radius);
         radius = radius * 0.90;
         
+        this.drawClock(this.ctx, radius);
         this.timerID = setInterval(
-            () => this.drawClock(this.ctx, radius),
+            () => this.drawMyTime(this.ctx, radius),
             1000
         );
     }
@@ -26,6 +27,12 @@ class ClockCircle extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.timerID);
+    }
+
+    drawMyTime(ctx, radius) {
+        this.drawFace(ctx, radius);
+        //this.drawNumbers(ctx, radius);
+        this.drawTime(ctx, radius);
     }
 
     drawClock(ctx, radius) {
