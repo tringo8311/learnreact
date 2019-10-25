@@ -1,0 +1,100 @@
+        .dressing-room {
+            margin-top: 40px;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 350px 350px 460px;
+            /* //grid-template-rows: 100px 480px; */
+            /* background-color: #fff; */
+            color: #444;
+            height: 610px;
+            padding: 10px;
+        }
+        
+        .dressing-room .box {
+            background-color: #FFE9D6;
+            color: #fff;
+            border-radius: 0;
+            padding: 10px;
+            font-size: 150%;
+            position: relative;
+        }
+        
+        .dressing-room .categories-box {
+            grid-column: 1 / span 2;
+            overflow: auto;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+        }
+        
+        .dressing-room .categories-box .item {
+            flex-grow: 1;
+        }
+        
+        .dressing-room .items-box {
+            grid-column: 1 / span 2;
+            grid-row: 2;
+            overflow: auto;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+        }
+        
+        .dressing-room .items-box .item {
+            flex-grow: 1;
+            flex-basis: calc(25% - 0.5rem);
+            width: 25%;
+            margin: 0.25rem;
+            display: block;
+            background: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .dressing-room .items-box .item img {}
+        
+        .dressing-room .staging-box {
+            grid-column: 3;
+            grid-row: 1 / span 2;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .btn.active {
+            background-color: #86519E;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .btn-default {
+            color: #333;
+            background-color: #fff;
+            border-color: #ccc;
+        }

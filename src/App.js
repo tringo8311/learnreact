@@ -5,7 +5,8 @@ import './App.css';
 import Data from "./Data"
 
 import TriResume from "./component/TriResume"
-import TriComment from "./component/TriComment"
+import { TriComment } from "./component/TriComment"
+import { TriDressingRoom } from "./component/TriDressingRoom"
 import ClockCircle from "./component/ClockCircle"
 import Calculator from "./component/Calculator"
 
@@ -17,9 +18,10 @@ function App() {
     <div className="App">
 		{/* <ClockCircle/> */}
 		{/* <Calculator /> */}
-		<TriComment/>
-      	<section style={{ margin: "0 auto", width: "600px", "textAlign": "left" }}>
-			<TriResume Data={Data}/>
+		{/* <TriComment/> */}
+		<section style={{ margin: "0 auto", width: "1200px", "textAlign": "left" }}>
+			{/* <TriResume Data={Data}/> */}
+					<TriDressingRoom/>
 		</section>
 
     </div>

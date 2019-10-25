@@ -171,4 +171,4 @@ CommentBox.propTypes = {
 function TriComment(props){
     return <CommentBox comments={data.comments} post={data.post} />
 }
-export default TriComment;
+export {TriComment};
