@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import './TriDressingRoom.css';
-import data from "./TriDressingRoomData";
+import localData from "./TriDressingRoomData";
 
-export const MContext = React.createContext();
+//export const MContext = React.createContext();
+import { useAsync } from 'react-async';
+
+const loadAllFn = async () =>
+    await fetch("http://localhost:8080/")
+        .then(res => (res.ok ? res : Promise.reject(res)))
+        .then(res => res.json())
 
 class Category extends Component {
     constructor(props) {
@@ -54,6 +60,7 @@ class Item extends Component {
         );
     }
 }
+
 class Staging extends Component {
     constructor(props) {
         super(props);
@@ -70,9 +77,10 @@ class Staging extends Component {
             }
         });
 
-        this.state = {
-            selectedItems: this.props.selectedItems
-        }
+        // this.state = {
+        //     selectedItems: this.props.selectedItems
+        // }
+        this.selectedItems = this.props.selectedItems;
         //this.renderStyle = this.renderStyle.bind(this);
     }
 
@@ -93,12 +101,12 @@ class Staging extends Component {
         return Object.assign({}, myDefaultStyle, myData);
     }
 
-    componentWillReceiveProps(nextProps) {
+    /*componentWillReceiveProps(nextProps) {
         //console.trace(nextProps);
         this.setState({
             selectedItems: nextProps.selectedItems
         })
-    }
+    }*/
 
     render() {
         var d = this;
@@ -112,7 +120,7 @@ class Staging extends Component {
                     })}
                 </div>
                 <div className="item">
-                    {this.state.selectedItems.map(function (item, indx) {
+                    {this.selectedItems.map(function (item, indx) {
                         return (
                             <div key={"selectedItems" + item["type"]} style={d.renderStyle(item)}></div>
                         )
@@ -198,20 +206,20 @@ class DressingRoom extends Component {
     }
 
     render() {
-        let d = this;
+        let { handleClickCategory, isSelectedCategory, handleClickItem } = this;
         return (
             <div className="dressing-room">
                 <div className="box categories-box">
                     {this.state.categories.map(function (category, i) {
                         return (
-                            <Category key={"category" + i} category={category} handleClickCategory={d.handleClickCategory} isSelectedCategory={d.isSelectedCategory}/>
+                            <Category key={"category" + i} category={category} handleClickCategory={handleClickCategory} isSelectedCategory={isSelectedCategory}/>
                         );
                     })}
                 </div>
                 <div className="box items-box">
                     {this.state.filterItems.map(function (item, i) {
                         return (
-                            <Item key={item.type + i} item={item} handleClickItem={d.handleClickItem}/>
+                            <Item key={item.type + i} item={item} handleClickItem={handleClickItem}/>
                         );
                     })}
                 </div>
@@ -226,6 +234,11 @@ class DressingRoom extends Component {
 }
 
 function TriDressingRoom(props) {
-    return <DressingRoom modelPart={data.modelPart} categories={data.categories} items={data.items}/>;
+    const { data, error, isLoading } = useAsync({ promiseFn: loadAllFn })
+    if (isLoading) return "Loading..."
+    if (error) return `Something went wrong: ${error.message}`
+    if (data){
+        return <DressingRoom modelPart={data.modelPart} categories={data.categories} items={data.items}/>;
+    }
 }
 export { TriDressingRoom };

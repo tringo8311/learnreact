@@ -5,6 +5,7 @@
     "dependencies": {
         "mathjs": "^6.2.3",
         "react": "^16.10.2",
+        "react-async": "^9.0.0",
         "react-dom": "^16.10.2",
         "react-scripts": "3.2.0"
     },
@@ -33,6 +34,8 @@
         "react-icons": "^3.7.0"
     },
     "externals": {
-        "subtract": ["math"]
+        "subtract": [
+            "math"
+        ]
     }
 }
