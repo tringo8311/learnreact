@@ -110,15 +110,15 @@ class TodoItem extends Component {
         this.handleToggleCompleted = this.handleToggleCompleted.bind(this);
     }
 
-    handleToggleCompleted(e, todoId){
+    handleToggleCompleted(e, item){
         if(e.target){
             var isToggle = true;
-            this.handleToggleCompleted(isToggle, todoId)
+            this.props.handleToggleCompleted(isToggle, item.id)
         }
     }
     render() {
         return (<React.Fragment>
-            <input type="checkbox" name="chekbox" value={this.state.item.id} defaultChecked={this.state.item.status == FilterEnum.completed}/>
+            <input type="checkbox" name="chekbox" value={this.state.item.id} defaultChecked={this.state.item.status == FilterEnum.completed} onChange={(e) => { this.handleToggleCompleted(e, this.state.item) }}/>
             <label> {this.state.item["content"]} </label>
         </React.Fragment>)
     }
@@ -136,16 +136,26 @@ class TodoFilter extends Component {
 
     handleChangeFilter(e, newValue){
         if(e.target){
+            this.setState({
+                currentFilter: newValue
+            })
             this.props.handleChangeFilter(newValue);
         }
+    }
+
+    handleClassName(myFilter){
+        if (this.state.currentFilter == myFilter){
+            return "btn active";
+        }
+        return "btn";
     }
 
     render() {
         return (<React.Fragment>
             <ul className="filter-list">
-                <li className="item"><a href="#all" className="item active" onClick={(e) => this.handleChangeFilter(e, FilterEnum.all)}>All</a></li>
-                <li className="item"><a href="#active" onClick={(e) => this.handleChangeFilter(e, FilterEnum.active)}>Active</a></li>
-                <li className="item"><a href="#completed" onClick={(e) => this.handleChangeFilter(e, FilterEnum.completed)}>Completed</a></li>
+                <li className="item"><a href="#all" className={this.handleClassName(FilterEnum.all)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.all)}>All</a></li>
+                <li className="item"><a href="#active" className={this.handleClassName(FilterEnum.active)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.active)}>Active</a></li>
+                <li className="item"><a href="#completed" className={this.handleClassName(FilterEnum.completed)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.completed)}>Completed</a></li>
             </ul>
         </React.Fragment>)
     }
@@ -202,6 +212,7 @@ class TodoList extends Component {
             let foundItem = { ...myItems[foundIndex] };
             foundItem.status = isToggle ? FilterEnum.completed : FilterEnum.active;
             myItems[foundIndex] = foundItem;
+            //console.log(myItems);
             this.setState({
                 items: myItems
             })
