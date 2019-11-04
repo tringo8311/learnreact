@@ -108,6 +108,7 @@ class TodoItem extends Component {
             item: this.props.item
         }
         this.handleToggleCompleted = this.handleToggleCompleted.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
     }
 
     handleToggleCompleted(e, item){
@@ -116,10 +117,17 @@ class TodoItem extends Component {
             this.props.handleToggleCompleted(isToggle, item.id)
         }
     }
+    handleRemove(e, item){
+        if (e.target) {
+            this.props.handleRemove(item.id)
+        }
+    }
+
     render() {
         return (<React.Fragment>
             <input type="checkbox" name="chekbox" value={this.state.item.id} defaultChecked={this.state.item.status == FilterEnum.completed} onChange={(e) => { this.handleToggleCompleted(e, this.state.item) }}/>
             <label> {this.state.item["content"]} </label>
+            <a href="javascript:;" onClick={(e) => { this.handleRemove(e, this.state.item)}}>Remove</a>
         </React.Fragment>)
     }
 }
@@ -171,6 +179,8 @@ class TodoList extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
         this.handleToggleCompleted = this.handleToggleCompleted.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
+        
     }
 
     componentDidMount() {
@@ -191,6 +201,19 @@ class TodoList extends Component {
         })
     }
 
+    handleRemove(todoId){
+        let myItems = [...this.state.items];
+        let foundIndex = myItems.findIndex(x => x.id == todoId);
+        if (foundIndex > -1) {
+            let foundItem = { ...myItems[foundIndex] };
+            myItems.splice(foundIndex, 1);
+            //console.log(myItems);
+            this.setState({
+                items: myItems
+            })
+        }
+    }
+
     handleSubmit(newValue){
         //console.log(newValue)
         var newItems = [...this.state.items];
@@ -208,7 +231,7 @@ class TodoList extends Component {
         //console.log(todoId);
         let myItems = [...this.state.items];
         let foundIndex = myItems.findIndex(x => x.id == todoId);
-        if(foundIndex){
+        if(foundIndex > -1){
             let foundItem = { ...myItems[foundIndex] };
             foundItem.status = isToggle ? FilterEnum.completed : FilterEnum.active;
             myItems[foundIndex] = foundItem;
@@ -234,7 +257,7 @@ class TodoList extends Component {
 
         var todoItems = shownTodos.map(function (todo) {
             return (
-                <li key={"todo" + todo.id}><TodoItem item={todo} handleToggleCompleted={this.handleToggleCompleted}/></li>
+                <li key={"todo" + todo.id}><TodoItem item={todo} handleToggleCompleted={this.handleToggleCompleted} handleRemove={this.handleRemove}/></li>
             );
         }, this);
 
