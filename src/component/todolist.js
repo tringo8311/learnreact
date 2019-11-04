@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { useHistory, Router } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const myData = [
@@ -74,7 +73,11 @@ class TodoCreate extends Component {
     handleKeyUp(event){
         if (event.key === 'Enter') {
             console.log('enter press here! ')
-            this.props.handleSubmit(this.state.newContent);
+            let newContent = this.state.newContent;
+            this.props.handleSubmit(newContent);
+            this.setState({
+                newContent: ""
+            })
         }
     }
 
@@ -117,6 +120,7 @@ class TodoItem extends Component {
             this.props.handleToggleCompleted(isToggle, item.id)
         }
     }
+
     handleRemove(e, item){
         if (e.target) {
             this.props.handleRemove(item.id)
@@ -192,6 +196,12 @@ class TodoList extends Component {
             // });
             // router.init('/');
         
+    }
+
+    componentDidUpdate(prevProps) {
+        // will be true
+
+        //console.log(this.props.location);
     }
 
     handleChangeFilter(newValue){
@@ -273,9 +283,11 @@ class TodoList extends Component {
         )
         
 
-        var todoFilter = (
-            <TodoFilter handleChangeFilter={this.handleChangeFilter} currentFilter={this.state.nowShowing}/>
-        )
+        let todoFilter;
+        if(this.state.items.length)
+            todoFilter = (
+                <TodoFilter handleChangeFilter={this.handleChangeFilter} currentFilter={this.state.nowShowing}/>
+            )
 
         return (<React.Fragment>
             <h2>Todo List</h2>
