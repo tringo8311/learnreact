@@ -7,8 +7,7 @@ import {
     Switch,
     Route,
     Link,
-    browserHistory,
-    useLocation
+    HashRouter
 } from "react-router-dom";
 
 function Home(){
@@ -22,7 +21,7 @@ function App() {
     // let location = useLocation();
     // console.log(location);
     return (
-        <Router>
+        <HashRouter>
             <div className="App" style={{ "width": "800px", "margin": "10px auto", "padding": "20px", "background": "#c0c0c0" }}>
                 <nav>
                     <ul>
@@ -47,12 +46,21 @@ function App() {
                     <Route path="/todos">
                         <TodoList/>
                     </Route>
+                    <Route path="/todos/all">
+                        <TodoList nowshowing="ALL"/>
+                    </Route>
+                    <Route path="/todos/active">
+                        <TodoList nowshowing="ACTIVE" />
+                    </Route>
+                    <Route path="/todos/completed">
+                        <TodoList nowshowing="COMPLETED" />
+                    </Route>
                     <Route path="/">
                         <Home />
                     </Route>
                 </Switch>
             </div>
-        </Router>
+        </HashRouter>
     );
     
 }

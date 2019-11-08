@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+   Link
+} from "react-router-dom";
 
 const myData = [
     {
@@ -165,9 +168,9 @@ class TodoFilter extends Component {
     render() {
         return (<React.Fragment>
             <ul className="filter-list">
-                <li className="item"><a href="#all" className={this.handleClassName(FilterEnum.all)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.all)}>All</a></li>
-                <li className="item"><a href="#active" className={this.handleClassName(FilterEnum.active)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.active)}>Active</a></li>
-                <li className="item"><a href="#completed" className={this.handleClassName(FilterEnum.completed)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.completed)}>Completed</a></li>
+                <li className="item"><Link to="/todos/all" className={this.handleClassName(FilterEnum.all)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.all)}>All</Link></li>
+                <li className="item"><Link to="/todos/active" className={this.handleClassName(FilterEnum.active)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.active)}>Active</Link></li>
+                <li className="item"><Link to="/todos/completed" className={this.handleClassName(FilterEnum.completed)} onClick={(e) => this.handleChangeFilter(e, FilterEnum.completed)}>Completed</Link></li>
             </ul>
         </React.Fragment>)
     }
@@ -177,18 +180,20 @@ class TodoList extends Component {
     constructor(props){
         super(props);
         this.state = {
-            items: [...myData],
-            nowShowing: FilterEnum.all
+            items: [],
+            nowShowing: this.props.nowshowing ? this.props.nowshowing : FilterEnum.all
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
         this.handleToggleCompleted = this.handleToggleCompleted.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
-        
     }
 
     componentDidMount() {
         var setState = this.setState;
+        this.setState({
+            items: [...myData]
+        });
         // var router =     ({
             //     '/': setState.bind(this, { nowShowing: FilterEnum.all }),
             //     '/active': setState.bind(this, { nowShowing: FilterEnum.active }),
