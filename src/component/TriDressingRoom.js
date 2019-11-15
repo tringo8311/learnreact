@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import './TriDressingRoom.css';
 import localData from "./TriDressingRoomData";
 
@@ -9,6 +9,10 @@ const loadAllFn = async () =>
     await fetch("http://localhost:8080/")
         .then(res => (res.ok ? res : Promise.reject(res)))
         .then(res => res.json())
+        .catch(error => {
+            console.log('request failed', error)
+            return localData;
+        });
 
 class Category extends Component {
     constructor(props) {
