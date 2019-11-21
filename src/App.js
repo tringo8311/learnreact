@@ -21,46 +21,7 @@ function App() {
     // let location = useLocation();
     // console.log(location);
     return (
-        <HashRouter>
-            <div className="App" style={{ "width": "800px", "margin": "10px auto", "padding": "20px", "background": "#c0c0c0" }}>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/todos">Todos</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                    </ul>
-                </nav>
-
-                {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-                <Switch>
-                    <Route path="/about">
-                        <About />
-                    </Route>
-                    <Route path="/todos">
-                        <TodoList/>
-                    </Route>
-                    <Route path="/todos/all">
-                        <TodoList nowshowing="ALL"/>
-                    </Route>
-                    <Route path="/todos/active">
-                        <TodoList nowshowing="ACTIVE" />
-                    </Route>
-                    <Route path="/todos/completed">
-                        <TodoList nowshowing="COMPLETED" />
-                    </Route>
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </Switch>
-            </div>
-        </HashRouter>
+        <div> tri ngo </div>
     );
     
 }
